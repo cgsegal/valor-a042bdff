@@ -15,6 +15,10 @@ export default function Layout({ children, currentPageName }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [user, setUser] = React.useState(null);
 
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
   const handleLogin = () => {
     // Placeholder for future authentication implementation
     window.location.href = '/MemberDashboard';
@@ -178,15 +182,6 @@ export default function Layout({ children, currentPageName }) {
               </a>
             </motion.div>
 
-            <motion.button 
-              onClick={user ? () => window.location.href = '/MemberDashboard' : handleLogin}
-              className="flex items-center gap-2 text-white hover:text-white/80 transition-colors"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Search className="w-5 h-5" />
-              <span className="text-sm font-light tracking-wider">{user ? 'ACCOUNT' : 'FIND A DEALER'}</span>
-            </motion.button>
           </div>
         </header>
 
@@ -194,32 +189,53 @@ export default function Layout({ children, currentPageName }) {
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
-              variants={menuVariants}
-              initial="closed"
-              animate="open"
-              exit="closed"
-              className="fixed inset-0 z-50"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md"
+              onClick={closeMenu}
             >
-              <div className="absolute inset-0 bg-black/70 backdrop-blur-md" />
-              
-              <button 
-                onClick={() => setIsMenuOpen(false)}
-                className="absolute top-8 left-8 flex items-center gap-2 text-white hover:text-white/80 transition-colors z-10"
+              <motion.button 
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.3, delay: 0.1 }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  closeMenu();
+                }}
+                className="absolute top-8 left-8 flex items-center gap-2 text-white hover:text-white/80 transition-colors z-20"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 <X className="w-6 h-6" />
                 <span className="text-sm font-light tracking-wider">CLOSE</span>
-              </button>
+              </motion.button>
 
-              <div className="relative z-10 flex flex-col items-center justify-center h-full">
+              <div 
+                className="relative z-10 flex flex-col items-center justify-center h-full"
+                onClick={(e) => e.stopPropagation()}
+              >
                 <nav className="text-center space-y-8">
                   {navItems.map((item, index) => (
                     <motion.div
                       key={item.name}
-                      custom={index}
-                      variants={menuItemVariants}
-                      initial="closed"
-                      animate="open"
-                      whileHover={{ scale: 1.1, y: -5 }}
+                      initial={{ opacity: 0, y: 50, scale: 0.8 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 50, scale: 0.8 }}
+                      transition={{ 
+                        duration: 0.5, 
+                        delay: 0.2 + (index * 0.1),
+                        ease: "easeOut"
+                      }}
+                      whileHover={{ 
+                        scale: 1.05, 
+                        y: -5,
+                        transition: { duration: 0.2 }
+                      }}
+                      whileTap={{ scale: 0.95 }}
                     >
                       <a
                         href={item.anchor ? `/${item.anchor}` : `/${item.path}`}
@@ -227,7 +243,16 @@ export default function Layout({ children, currentPageName }) {
                         onClick={(e) => handleNavClick(e, item)}
                       >
                         {item.name}
-                        {item.comingSoon && <span className="text-sm ml-4 text-white/40">COMING SOON</span>}
+                        {item.comingSoon && (
+                          <motion.span 
+                            className="text-sm ml-4 text-white/40"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.5 + (index * 0.1) }}
+                          >
+                            COMING SOON
+                          </motion.span>
+                        )}
                       </a>
                     </motion.div>
                   ))}

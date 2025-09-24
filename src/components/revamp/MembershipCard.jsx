@@ -26,8 +26,8 @@ export default function MembershipCard({ tier }) {
   const tierData = tiers[tier];
 
   const handleLogin = () => {
-    // Placeholder for future authentication implementation
-    window.location.href = '/MemberDashboard';
+    // Navigate to authentication page
+    window.location.href = '/AuthPage';
   };
 
   return (

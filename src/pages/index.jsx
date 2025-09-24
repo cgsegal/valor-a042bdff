@@ -10,6 +10,8 @@ import PrivacyPolicy from "./PrivacyPolicy";
 
 import Terms from "./Terms";
 
+import AuthPage from "./AuthPage";
+
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 
 const PAGES = {
@@ -23,6 +25,8 @@ const PAGES = {
     PrivacyPolicy: PrivacyPolicy,
     
     Terms: Terms,
+    
+    AuthPage: AuthPage,
     
 }
 
@@ -60,6 +64,8 @@ function PagesContent() {
                 <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
                 
                 <Route path="/Terms" element={<Terms />} />
+                
+                <Route path="/AuthPage" element={<AuthPage />} />
                 
             </Routes>
         </Layout>

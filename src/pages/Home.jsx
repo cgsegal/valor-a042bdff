@@ -11,13 +11,13 @@ const fleet = [
   // ROLLS ROYCE
   { 
     name: 'Rolls Royce Cullinan Series 2', 
-    image: '/src/media/cullinan3.jpg', 
+    image: '/media/cullinan3.jpg', 
     category: 'SUV', 
     brand: 'Rolls Royce',
     images: [
-      '/src/media/cullinan3.jpg',
-      '/src/media/cullinan3.jpg',
-      '/src/media/cullinan3.jpg'
+      '/media/cullinan3.jpg',
+      '/media/cullinan3.jpg',
+      '/media/cullinan3.jpg'
     ],
     marketHourlyPrice: 160,
     marketDailyPrice: 1015,
@@ -32,13 +32,13 @@ const fleet = [
   },
   { 
     name: 'Rolls Royce Cullinan Silver Badge', 
-    image: '/src/media/cullinan2.jpg', 
+    image: '/media/cullinan2.jpg', 
     category: 'SUV', 
     brand: 'Rolls Royce',
     images: [
-      '/src/media/cullinan2.jpg',
-      '/src/media/cullinan2.jpg',
-      '/src/media/cullinan2.jpg'
+      '/media/cullinan2.jpg',
+      '/media/cullinan2.jpg',
+      '/media/cullinan2.jpg'
     ],
     marketHourlyPrice: 160,
     marketDailyPrice: 1015,
@@ -53,13 +53,13 @@ const fleet = [
   },
   { 
     name: 'Rolls Royce Cullinan Black Badge', 
-    image: '/src/media/cullinan.jpg', 
+    image: '/media/cullinan.jpg', 
     category: 'SUV', 
     brand: 'Rolls Royce',
     images: [
-      '/src/media/cullinan.jpg',
-      '/src/media/cullinan.jpg',
-      '/src/media/cullinan.jpg'
+      '/media/cullinan.jpg',
+      '/media/cullinan.jpg',
+      '/media/cullinan.jpg'
     ],
     marketHourlyPrice: 160,
     marketDailyPrice: 1015,
@@ -74,13 +74,13 @@ const fleet = [
   },
   { 
     name: 'Rolls Royce Cullinan Black Badge', 
-    image: '/src/media/cullinan.jpg', 
+    image: '/media/cullinan.jpg', 
     category: 'SUV', 
     brand: 'Rolls Royce',
     images: [
-      '/src/media/cullinan.jpg',
-      '/src/media/cullinan.jpg',
-      '/src/media/cullinan.jpg'
+      '/media/cullinan.jpg',
+      '/media/cullinan.jpg',
+      '/media/cullinan.jpg'
     ],
     marketHourlyPrice: 160,
     marketDailyPrice: 1015,
@@ -870,7 +870,7 @@ export default function HomePage() {
           playsInline
           className="absolute top-0 left-0 w-full h-full object-cover"
         >
-          <source src="/src/media/0924.mp4" type="video/mp4" />
+          <source src="/media/0924.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-black/40" />
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-white text-center px-4">

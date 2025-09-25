@@ -15,29 +15,36 @@ export default defineConfig({
     extensions: ['.mjs', '.js', '.jsx', '.ts', '.tsx', '.json']
   },
   build: {
+    target: 'esnext',
+    minify: 'esbuild',
     rollupOptions: {
       external: [],
       output: {
-        manualChunks: undefined
+        manualChunks: undefined,
+        format: 'es'
       }
     },
-    target: 'esnext',
-    minify: 'esbuild',
     commonjsOptions: {
       include: [/node_modules/]
-    }
+    },
+    sourcemap: false,
+    reportCompressedSize: false
   },
   optimizeDeps: {
     esbuildOptions: {
       loader: {
         '.js': 'jsx',
       },
+      target: 'esnext'
     },
   },
   define: {
     global: 'globalThis',
   },
   esbuild: {
-    target: 'esnext'
+    target: 'esnext',
+    format: 'esm'
   },
+  envPrefix: 'VITE_',
+  envDir: '.'
 }) 

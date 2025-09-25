@@ -531,22 +531,6 @@ const fleetByBrand = fleet.reduce((acc, car) => {
 
 const tiers = [
     {
-        name: 'Silver',
-        title: 'SILVAR Complimentary',
-        description: 'The essential membership for accessing our core collection of luxury vehicles.',
-        price: 'Complimentary',
-        features: [
-            'Access to standard luxury fleet',
-            '24/7 Standard Concierge',
-            'Member-only events',
-            'Seamless booking process'
-        ],
-        cta: 'Become a Member',
-        bgClass: 'from-gray-500/10 to-gray-800/10 border-gray-600',
-        buttonClass: 'bg-white text-white hover:bg-white/90 hover:text-black shadow-lg',
-        popular: false,
-    },
-    {
         name: 'Black',
         title: 'Founder\'s Edition',
         description: 'The definitive luxury experience with unparalleled access to our most exclusive assets.',
@@ -559,9 +543,31 @@ const tiers = [
             'Global partnership benefits'
         ],
         cta: 'Request Invitation',
-        bgClass: 'from-purple-900/20 to-black/20 border-purple-700 shadow-purple-500/20',
+        bgClass: 'bg-black',
         buttonClass: 'bg-purple-600 text-white hover:bg-white hover:text-black shadow-lg',
-        popular: true,
+        zIndex: 2,
+        rotation: 0,
+        translateX: 0,
+        translateY: 0,
+    },
+    {
+        name: 'Silver',
+        title: 'SILVAR Complimentary',
+        description: 'The essential membership for accessing our core collection of luxury vehicles.',
+        price: 'Complimentary',
+        features: [
+            'Access to standard luxury fleet',
+            '24/7 Standard Concierge',
+            'Member-only events',
+            'Seamless booking process'
+        ],
+        cta: 'Become a Member',
+        bgClass: 'bg-gradient-to-br from-gray-500 to-gray-600',
+        buttonClass: 'bg-white text-black hover:bg-white/90 shadow-lg',
+        zIndex: 1,
+        rotation: -3,
+        translateX: -30,
+        translateY: 20,
     }
 ];
 
@@ -727,54 +733,145 @@ const FleetCarousel = ({ fleet, onCarClick }) => {
   );
 };
 
-const TierCard = ({ tier, index }) => (
-    <div className="flex flex-col h-full">
-        {/* Business Card */}
+const TierCard = ({ tier, index, isActive, onClick }) => (
+    <div 
+        className={`absolute w-80 h-96 cursor-pointer transition-all duration-700 ease-in-out ${
+            isActive ? 'scale-105' : 'scale-100'
+        }`}
+        style={{
+            zIndex: isActive ? 3 : tier.zIndex,
+            transform: `rotate(${tier.rotation}deg) translate(${tier.translateX}px, ${tier.translateY}px)`,
+            transformOrigin: 'center center',
+            opacity: isActive ? 1 : 0.7,
+        }}
+        onClick={onClick}
+    >
         <div
-            className={`relative rounded-2xl p-8 border ${tier.bgClass} flex flex-col h-80 shadow-2xl glow-border`}
+            className={`relative rounded-2xl p-6 border border-white/20 ${tier.bgClass} flex flex-col h-full shadow-2xl transition-all duration-700 ease-in-out ${
+                isActive ? 'shadow-purple-500/30 shadow-2xl' : 'shadow-xl'
+            }`}
         >
-            {tier.popular && (
-              <div className="absolute top-0 right-8 -mt-3 bg-purple-600 text-white text-xs font-bold px-3 py-1 rounded-full">
-                FOUNDER'S PICK
-              </div>
-            )}
-            
             <div className="flex-grow flex flex-col justify-center text-center">
-                <h3 className="text-4xl font-display mb-2">
+                <h3 className="text-3xl font-display mb-2 text-white transition-all duration-700">
                   {tier.name}
                 </h3>
-                <p className="text-white/80 mb-4 font-light text-lg">{tier.title}</p>
+                <p className="text-white/80 mb-4 font-light text-sm transition-all duration-700">{tier.title}</p>
 
-                <p className="text-3xl font-light mb-6">
+                <p className="text-2xl font-light mb-4 text-white transition-all duration-700">
                   {tier.price}
                 </p>
-                <p className="text-white/70 font-light text-sm leading-relaxed">{tier.description}</p>
+                <p className="text-white/70 font-light text-xs leading-relaxed mb-4 transition-all duration-700">{tier.description}</p>
             </div>
-        </div>
 
-        {/* Detailed Features Below Card */}
-        <div className="space-y-4 mt-6 flex-grow">
-            {tier.features.map((feature, i) => (
-                <div key={i} className="flex items-start gap-3">
-                    <div>
-                      <Check className="w-5 h-5 text-purple-400 mt-1" />
+            {/* Features List */}
+            <div className="space-y-2 mb-4">
+                {tier.features.map((feature, i) => (
+                    <div key={i} className="flex items-start gap-2 transition-all duration-700" style={{ transitionDelay: `${i * 100}ms` }}>
+                        <div>
+                          <Check className="w-4 h-4 text-green-400 mt-0.5" />
+                        </div>
+                        <span className="font-light text-white/80 text-xs">{feature}</span>
                     </div>
-                    <span className="font-light text-white/80">{feature}</span>
-                </div>
-            ))}
-        </div>
+                ))}
+            </div>
 
-        <div className="mt-auto mb-8">
-          <Button 
-            size="lg" 
-            className={`w-full font-bold ${tier.buttonClass} shimmer-effect opacity-90 hover:opacity-100 transition-opacity`}
-            onClick={() => window.location.href = '/AuthPage'}
-          >
-            {tier.cta}
-          </Button>
+            <div className="mt-auto">
+              <Button 
+                size="sm" 
+                className={`w-full font-bold ${tier.buttonClass} text-xs transition-all duration-700`}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    window.location.href = '/AuthPage';
+                }}
+              >
+                {tier.cta}
+              </Button>
+            </div>
         </div>
     </div>
 );
+
+const MembershipCarousel = ({ tiers }) => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  const nextCard = () => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setActiveIndex((prev) => (prev + 1) % tiers.length);
+    setTimeout(() => setIsTransitioning(false), 700);
+  };
+
+  const prevCard = () => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setActiveIndex((prev) => (prev - 1 + tiers.length) % tiers.length);
+    setTimeout(() => setIsTransitioning(false), 700);
+  };
+
+  const selectCard = (index) => {
+    if (isTransitioning || activeIndex === index) return;
+    setIsTransitioning(true);
+    setActiveIndex(index);
+    setTimeout(() => setIsTransitioning(false), 700);
+  };
+
+  return (
+    <div className="relative">
+      {/* Navigation Arrows */}
+      <button
+        onClick={prevCard}
+        disabled={isTransitioning}
+        className={`absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-black/50 border border-white/20 backdrop-blur-sm transition-all duration-500 text-white hover:bg-white/20 hover:scale-110 ${
+          isTransitioning ? 'opacity-50 cursor-not-allowed' : 'opacity-100'
+        }`}
+      >
+        <ChevronLeft className="w-6 h-6" />
+      </button>
+
+      <button
+        onClick={nextCard}
+        disabled={isTransitioning}
+        className={`absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-black/50 border border-white/20 backdrop-blur-sm transition-all duration-500 text-white hover:bg-white/20 hover:scale-110 ${
+          isTransitioning ? 'opacity-50 cursor-not-allowed' : 'opacity-100'
+        }`}
+      >
+        <ChevronRight className="w-6 h-6" />
+      </button>
+
+      {/* Card Indicators */}
+      <div className="flex justify-center gap-2 mb-8">
+        {tiers.map((tier, index) => (
+          <button
+            key={tier.name}
+            onClick={() => selectCard(index)}
+            disabled={isTransitioning}
+            className={`w-3 h-3 rounded-full transition-all duration-500 ${
+              activeIndex === index 
+                ? 'bg-white scale-125' 
+                : 'bg-white/40 hover:bg-white/60'
+            } ${isTransitioning ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+          />
+        ))}
+      </div>
+
+      {/* Stacked Cards Container */}
+      <div className="relative flex justify-center items-center min-h-[500px]">
+        <div className="relative w-80 h-96">
+          {tiers.map((tier, index) => (
+            <TierCard 
+              key={tier.name} 
+              tier={tier} 
+              index={index} 
+              isActive={activeIndex === index}
+              onClick={() => selectCard(index)}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 // Navigation Indicator Component
 const NavigationIndicator = ({ activeSection, onSectionClick }) => {
@@ -918,18 +1015,14 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-8">
             <div className="text-center mb-20">
                 <h1 className="text-5xl md:text-7xl font-display mb-4">
-                  Membership
+                  Exclusive Membership
                 </h1>
                 <p className="text-white/70 text-xl font-light max-w-2xl mx-auto">
                   An invitation to a world beyond access, tailored to your desires.
                 </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
-                {tiers.map((tier, index) => (
-                    <TierCard key={tier.name} tier={tier} index={index} />
-                ))}
-            </div>
+            <MembershipCarousel tiers={tiers} />
         </div>
       </section>
       

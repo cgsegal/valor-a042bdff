@@ -158,40 +158,43 @@ export default function Layout({ children, currentPageName }) {
       <div className="relative min-h-screen bg-black text-white">
         {/* Navigation Header - Always Present */}
         <header className="fixed top-0 left-0 right-0 z-40 px-4 py-4">
-          <div className="flex items-center justify-between max-w-4xl mx-auto">
-            {/* Menu Button */}
+          {/* Black background bar that moves with scroll */}
+          <div className="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+          <div className="relative flex items-center justify-between max-w-4xl mx-auto">
+            {/* Menu Button - Mobile: icon only, Desktop: icon + text */}
             <motion.button 
               onClick={() => setIsMenuOpen(true)}
-              className="flex items-center gap-2 text-white hover:text-white/80 transition-colors"
+              className="flex items-center gap-2 text-white hover:text-white/80 transition-colors w-1/3 sm:w-auto"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               <Menu className="w-6 h-6" />
-              <span className="text-sm font-light tracking-wider">MENU</span>
+              <span className="hidden sm:inline text-sm font-light tracking-wider">MENU</span>
             </motion.button>
 
-            {/* Centered Silvar Logo */}
-            <div className="absolute left-1/2 transform -translate-x-1/2">
+            {/* Centered Silvar Logo - Mobile: 1/3 width, Desktop: centered */}
+            <div className="w-1/3 sm:w-auto sm:absolute sm:left-1/2 sm:transform sm:-translate-x-1/2 flex justify-center">
               <motion.div
                 className="floating-animation"
                 whileHover={{ scale: 1.1 }}
               >
                 <a href="/">
-                  <h1 className="text-xl font-display tracking-wider text-white silvar-glow">
+                  <h1 className="text-lg sm:text-xl font-display tracking-wider text-white silvar-glow">
                     SILVAR
                   </h1>
                 </a>
               </motion.div>
             </div>
 
-            {/* View Reservation Button */}
+            {/* View Reservation Button - Mobile: smaller, Desktop: normal */}
             <motion.button
               onClick={() => window.location.href = '/MemberDashboard'}
-              className="text-white border border-white/20 hover:bg-white/10 px-4 py-2 text-sm font-light tracking-wider rounded transition-colors"
+              className="text-white border border-white/20 hover:bg-white/10 px-2 py-1 sm:px-3 sm:py-1.5 text-xs sm:text-xs font-light tracking-wider rounded transition-colors w-1/3 sm:w-auto flex justify-center"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              View Reservation
+              <span className="hidden sm:inline">Reserve Now</span>
+              <span className="sm:hidden">Reserve Now</span>
             </motion.button>
           </div>
         </header>

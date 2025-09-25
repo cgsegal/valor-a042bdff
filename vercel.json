@@ -2,5 +2,9 @@
   "buildCommand": "npm run build:vercel",
   "outputDirectory": "dist",
   "framework": "vite",
-  "installCommand": "npm ci --prefer-offline --no-audit --no-fund"
+  "installCommand": "rm -rf node_modules package-lock.json && npm install --no-audit --no-fund --platform=linux --arch=x64",
+  "env": {
+    "NODE_OPTIONS": "--max-old-space-size=4096",
+    "ROLLUP_DISABLE_NATIVE": "true"
+  }
 }

@@ -2,73 +2,251 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { MessageCircle, Phone, Mail, Check, ChevronLeft, ChevronRight } from 'lucide-react';
+import { MessageCircle, Phone, Mail, Check, ChevronLeft, ChevronRight, Menu } from 'lucide-react';
 import ContactForm from '../components/revamp/ContactForm';
 import CarDetailModal from '../components/revamp/CarDetailModal';
 
-// Complete fleet based on footer cars, organized by brand alphabetically
+// Complete fleet based on real data from the table
 const fleet = [
-  // BMW
+  // ROLLS ROYCE
   { 
-    name: 'BMW 7 Series', 
-    image: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&h=600&fit=crop&crop=center', 
-    category: 'Sedan', 
-    brand: 'BMW',
+    name: 'Rolls Royce Cullinan Series 2', 
+    image: '/src/media/cullinan3.jpg', 
+    category: 'SUV', 
+    brand: 'Rolls Royce',
     images: [
-      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1200&h=800&fit=crop&crop=center',
-      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
-      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
+      '/src/media/cullinan3.jpg',
+      '/src/media/cullinan3.jpg',
+      '/src/media/cullinan3.jpg'
     ],
-    price: '$95,000',
-    year: '2024',
-    engine: '4.4L V8 Twin-Turbo',
-    horsepower: '523 HP',
-    acceleration: '4.1s 0-60 mph',
+    marketHourlyPrice: 160,
+    marketDailyPrice: 1015,
+    minimumUseTime: '3 hours',
+    year: '2025',
+    engine: '6.75L V12 Twin-Turbo',
+    horsepower: '563 HP',
+    acceleration: '5.0s 0-60 mph',
     topSpeed: '155 mph',
-    features: ['Luxury Interior', 'Advanced Safety', 'Premium Audio', 'Heated Seats', 'Navigation'],
-    description: 'The BMW 7 Series represents the pinnacle of luxury and performance, combining cutting-edge technology with unparalleled comfort.'
+    features: ['Bespoke Interior', 'Magic Carpet Ride', 'Suicide Doors', 'Starlight Headliner', 'Custom Options'],
+    description: 'The Rolls Royce Cullinan Series 2 is the world\'s most luxurious SUV, offering unparalleled refinement and bespoke craftsmanship.'
+  },
+  { 
+    name: 'Rolls Royce Cullinan Silver Badge', 
+    image: '/src/media/cullinan2.jpg', 
+    category: 'SUV', 
+    brand: 'Rolls Royce',
+    images: [
+      '/src/media/cullinan2.jpg',
+      '/src/media/cullinan2.jpg',
+      '/src/media/cullinan2.jpg'
+    ],
+    marketHourlyPrice: 160,
+    marketDailyPrice: 1015,
+    minimumUseTime: '3 hours',
+    year: '2025',
+    engine: '6.75L V12 Twin-Turbo',
+    horsepower: '563 HP',
+    acceleration: '5.0s 0-60 mph',
+    topSpeed: '155 mph',
+    features: ['Bespoke Interior', 'Magic Carpet Ride', 'Suicide Doors', 'Starlight Headliner', 'Custom Options'],
+    description: 'The Rolls Royce Cullinan Silver Badge offers the ultimate in luxury SUV refinement with exclusive silver accents.'
+  },
+  { 
+    name: 'Rolls Royce Cullinan Black Badge', 
+    image: '/src/media/cullinan.jpg', 
+    category: 'SUV', 
+    brand: 'Rolls Royce',
+    images: [
+      '/src/media/cullinan.jpg',
+      '/src/media/cullinan.jpg',
+      '/src/media/cullinan.jpg'
+    ],
+    marketHourlyPrice: 160,
+    marketDailyPrice: 1015,
+    minimumUseTime: '3 hours',
+    year: '2022',
+    engine: '6.75L V12 Twin-Turbo',
+    horsepower: '563 HP',
+    acceleration: '5.0s 0-60 mph',
+    topSpeed: '155 mph',
+    features: ['Bespoke Interior', 'Magic Carpet Ride', 'Suicide Doors', 'Starlight Headliner', 'Custom Options'],
+    description: 'The Rolls Royce Cullinan Black Badge represents the pinnacle of luxury with its exclusive black accents and enhanced performance.'
+  },
+  { 
+    name: 'Rolls Royce Cullinan Black Badge', 
+    image: '/src/media/cullinan.jpg', 
+    category: 'SUV', 
+    brand: 'Rolls Royce',
+    images: [
+      '/src/media/cullinan.jpg',
+      '/src/media/cullinan.jpg',
+      '/src/media/cullinan.jpg'
+    ],
+    marketHourlyPrice: 160,
+    marketDailyPrice: 1015,
+    minimumUseTime: '3 hours',
+    year: '2023',
+    engine: '6.75L V12 Twin-Turbo',
+    horsepower: '563 HP',
+    acceleration: '5.0s 0-60 mph',
+    topSpeed: '155 mph',
+    features: ['Bespoke Interior', 'Magic Carpet Ride', 'Suicide Doors', 'Starlight Headliner', 'Custom Options'],
+    description: 'The Rolls Royce Cullinan Black Badge represents the pinnacle of luxury with its exclusive black accents and enhanced performance.'
   },
   
-  // CADILLAC
+  // MERCEDES
   { 
-    name: 'Cadillac Escalade V', 
+    name: 'Mercedes S Class Maybach', 
     image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop&crop=center', 
-    category: 'SUV', 
-    brand: 'Cadillac',
+    category: 'Sedan', 
+    brand: 'Mercedes',
     images: [
       'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center',
       'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
       'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
     ],
-    price: '$150,000',
+    marketHourlyPrice: 136,
+    marketDailyPrice: 1000,
+    minimumUseTime: '3 hours',
     year: '2024',
-    engine: '6.2L V8 Supercharged',
-    horsepower: '682 HP',
-    acceleration: '4.4s 0-60 mph',
-    topSpeed: '120 mph',
-    features: ['Third Row Seating', 'Premium Leather', 'Advanced AWD', 'Towing Package', 'Entertainment System'],
-    description: 'The Cadillac Escalade V delivers uncompromising luxury and performance in a full-size SUV package.'
+    engine: '4.0L V8 Biturbo',
+    horsepower: '496 HP',
+    acceleration: '4.5s 0-60 mph',
+    topSpeed: '155 mph',
+    features: ['Maybach Luxury', 'Executive Seating', 'Premium Audio', 'Advanced Safety', 'Chauffeur Package'],
+    description: 'The Mercedes S Class Maybach represents the pinnacle of luxury sedans with unparalleled comfort and refinement.'
+  },
+  { 
+    name: 'Mercedes GLS Maybach', 
+    image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop&crop=center', 
+    category: 'SUV', 
+    brand: 'Mercedes',
+    images: [
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center',
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
+    ],
+    marketHourlyPrice: 120,
+    marketDailyPrice: 1050,
+    minimumUseTime: '3 hours',
+    year: '2024',
+    engine: '4.0L V8 Biturbo',
+    horsepower: '496 HP',
+    acceleration: '4.9s 0-60 mph',
+    topSpeed: '155 mph',
+    features: ['Maybach Luxury', 'Third Row Seating', 'Premium Audio', 'Advanced Safety', 'Chauffeur Package'],
+    description: 'The Mercedes GLS Maybach combines the versatility of an SUV with the luxury of a Maybach sedan.'
   },
   
   // FERRARI
   { 
-    name: 'Ferrari 296 GTB', 
+    name: 'Ferrari Purosangue Red', 
     image: 'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=800&h=600&fit=crop&crop=center', 
-    category: 'Supercar', 
+    category: 'SUV', 
     brand: 'Ferrari',
     images: [
       'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=1200&h=800&fit=crop&crop=center',
       'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
       'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
     ],
-    price: '$320,000',
+    marketHourlyPrice: 149.5,
+    marketDailyPrice: 1046.5,
+    minimumUseTime: '3 hours',
+    year: '2025',
+    engine: '6.5L V12',
+    horsepower: '715 HP',
+    acceleration: '3.3s 0-60 mph',
+    topSpeed: '193 mph',
+    features: ['Ferrari Performance', 'Luxury SUV', 'V12 Engine', 'Active Aero', 'Racing Heritage'],
+    description: 'The Ferrari Purosangue Red represents Ferrari\'s first SUV, combining supercar performance with SUV practicality.'
+  },
+  { 
+    name: 'Ferrari Purosangue Grey', 
+    image: 'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=800&h=600&fit=crop&crop=center', 
+    category: 'SUV', 
+    brand: 'Ferrari',
+    images: [
+      'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=1200&h=800&fit=crop&crop=center',
+      'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
+      'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
+    ],
+    marketHourlyPrice: 149.5,
+    marketDailyPrice: 1046.5,
+    minimumUseTime: '3 hours',
     year: '2024',
-    engine: '3.0L V6 Hybrid',
-    horsepower: '819 HP',
-    acceleration: '2.9s 0-60 mph',
-    topSpeed: '205 mph',
-    features: ['Hybrid Technology', 'Carbon Fiber Body', 'Racing Seats', 'Track Mode', 'Active Aero'],
-    description: 'The Ferrari 296 GTB represents the future of supercars with its revolutionary hybrid powertrain and stunning performance.'
+    engine: '6.5L V12',
+    horsepower: '715 HP',
+    acceleration: '3.3s 0-60 mph',
+    topSpeed: '193 mph',
+    features: ['Ferrari Performance', 'Luxury SUV', 'V12 Engine', 'Active Aero', 'Racing Heritage'],
+    description: 'The Ferrari Purosangue Grey represents Ferrari\'s first SUV, combining supercar performance with SUV practicality.'
+  },
+  
+  // ROLLS ROYCE PHANTOM
+  { 
+    name: 'Rolls Royce Phantom', 
+    image: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&h=600&fit=crop&crop=center', 
+    category: 'Sedan', 
+    brand: 'Rolls Royce',
+    images: [
+      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1200&h=800&fit=crop&crop=center',
+      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
+      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
+    ],
+    marketHourlyPrice: 156,
+    marketDailyPrice: 1330,
+    minimumUseTime: '3 hours',
+    year: '2024',
+    engine: '6.75L V12 Twin-Turbo',
+    horsepower: '563 HP',
+    acceleration: '5.4s 0-60 mph',
+    topSpeed: '155 mph',
+    features: ['Bespoke Interior', 'Magic Carpet Ride', 'Suicide Doors', 'Starlight Headliner', 'Custom Options'],
+    description: 'The Rolls Royce Phantom is the ultimate expression of luxury, representing the pinnacle of automotive craftsmanship and personalization.'
+  },
+  
+  // MERCEDES G63
+  { 
+    name: 'Mercedes G63', 
+    image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop&crop=center', 
+    category: 'SUV', 
+    brand: 'Mercedes',
+    images: [
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center',
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
+    ],
+    marketHourlyPrice: 100,
+    marketDailyPrice: 700,
+    minimumUseTime: '4 hours',
+    year: '2025',
+    engine: '4.0L V8 Biturbo',
+    horsepower: '577 HP',
+    acceleration: '4.5s 0-60 mph',
+    topSpeed: '149 mph',
+    features: ['Three Locking Diffs', 'AMG Performance', 'Luxury Interior', 'Off-Road Capable', 'Premium Audio'],
+    description: 'The Mercedes G63 combines legendary off-road capability with AMG performance and luxury.'
+  },
+  { 
+    name: 'Mercedes G63', 
+    image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop&crop=center', 
+    category: 'SUV', 
+    brand: 'Mercedes',
+    images: [
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center',
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
+    ],
+    marketHourlyPrice: 100,
+    marketDailyPrice: 700,
+    minimumUseTime: '4 hours',
+    year: '2023',
+    engine: '4.0L V8 Biturbo',
+    horsepower: '577 HP',
+    acceleration: '4.5s 0-60 mph',
+    topSpeed: '149 mph',
+    features: ['Three Locking Diffs', 'AMG Performance', 'Luxury Interior', 'Off-Road Capable', 'Premium Audio'],
+    description: 'The Mercedes G63 combines legendary off-road capability with AMG performance and luxury.'
   },
   
   // LAMBORGHINI
@@ -82,7 +260,9 @@ const fleet = [
       'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
       'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
     ],
-    price: '$230,000',
+    marketHourlyPrice: 120,
+    marketDailyPrice: 626.5,
+    minimumUseTime: '3 hours',
     year: '2024',
     engine: '4.0L V8 Twin-Turbo',
     horsepower: '641 HP',
@@ -91,69 +271,54 @@ const fleet = [
     features: ['All-Wheel Drive', 'Adaptive Suspension', 'Sport Mode', 'Premium Interior', 'Advanced Safety'],
     description: 'The Lamborghini Urus combines the soul of a supercar with the versatility of an SUV.'
   },
-  { 
-    name: 'Lamborghini Huracan', 
-    image: 'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=800&h=600&fit=crop&crop=center', 
-    category: 'Supercar', 
-    brand: 'Lamborghini',
-    images: [
-      'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=1200&h=800&fit=crop&crop=center',
-      'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
-      'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
-    ],
-    price: '$200,000',
-    year: '2024',
-    engine: '5.2L V10',
-    horsepower: '610 HP',
-    acceleration: '3.2s 0-60 mph',
-    topSpeed: '201 mph',
-    features: ['Naturally Aspirated V10', 'Carbon Fiber', 'Racing Heritage', 'Active Aero', 'Track Focused'],
-    description: 'The Lamborghini Huracan delivers pure driving emotion with its naturally aspirated V10 engine.'
-  },
   
-  // MCLAREN
+  // LAND ROVER
   { 
-    name: 'McLaren 720S', 
-    image: 'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=800&h=600&fit=crop&crop=center', 
-    category: 'Supercar', 
-    brand: 'McLaren',
-    images: [
-      'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=1200&h=800&fit=crop&crop=center',
-      'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
-      'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
-    ],
-    price: '$300,000',
-    year: '2024',
-    engine: '4.0L V8 Twin-Turbo',
-    horsepower: '710 HP',
-    acceleration: '2.8s 0-60 mph',
-    topSpeed: '212 mph',
-    features: ['Carbon Fiber Monocage', 'Active Aero', 'Racing DNA', 'Lightweight Design', 'Track Performance'],
-    description: 'The McLaren 720S represents the perfect balance of performance, technology, and everyday usability.'
-  },
-  
-  // MERCEDES
-  { 
-    name: 'Mercedes-AMG G 63', 
+    name: 'Land Rover Defender V6', 
     image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop&crop=center', 
     category: 'SUV', 
-    brand: 'Mercedes',
+    brand: 'Land Rover',
     images: [
       'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center',
       'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
       'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
     ],
-    price: '$180,000',
-    year: '2024',
-    engine: '4.0L V8 Biturbo',
-    horsepower: '577 HP',
-    acceleration: '4.5s 0-60 mph',
-    topSpeed: '149 mph',
-    features: ['Three Locking Diffs', 'AMG Performance', 'Luxury Interior', 'Off-Road Capable', 'Premium Audio'],
-    description: 'The Mercedes-AMG G 63 combines legendary off-road capability with AMG performance and luxury.'
+    marketHourlyPrice: 80,
+    marketDailyPrice: 665,
+    minimumUseTime: '3 hours',
+    year: '2025',
+    engine: '3.0L I6 Turbo',
+    horsepower: '296 HP',
+    acceleration: '7.0s 0-60 mph',
+    topSpeed: '119 mph',
+    features: ['Terrain Response', 'Air Suspension', 'Premium Interior', 'Off-Road Capable', 'Advanced Safety'],
+    description: 'The Land Rover Defender V6 combines legendary off-road capability with modern luxury and comfort.'
   },
   { 
-    name: 'Mercedes S-Class', 
+    name: 'Land Rover Defender V8', 
+    image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop&crop=center', 
+    category: 'SUV', 
+    brand: 'Land Rover',
+    images: [
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center',
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
+    ],
+    marketHourlyPrice: 80,
+    marketDailyPrice: 665,
+    minimumUseTime: '3 hours',
+    year: '2024',
+    engine: '5.0L V8 Supercharged',
+    horsepower: '518 HP',
+    acceleration: '5.1s 0-60 mph',
+    topSpeed: '149 mph',
+    features: ['Terrain Response', 'Air Suspension', 'Premium Interior', 'Off-Road Capable', 'Advanced Safety'],
+    description: 'The Land Rover Defender V8 combines legendary off-road capability with V8 power and modern luxury.'
+  },
+  
+  // MERCEDES S CLASS
+  { 
+    name: 'Mercedes S Class', 
     image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop&crop=center', 
     category: 'Sedan', 
     brand: 'Mercedes',
@@ -162,115 +327,196 @@ const fleet = [
       'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
       'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
     ],
-    price: '$120,000',
-    year: '2024',
+    marketHourlyPrice: 52,
+    marketDailyPrice: 420,
+    minimumUseTime: '3 hours',
+    year: '2025',
     engine: '3.0L I6 Turbo',
     horsepower: '429 HP',
     acceleration: '4.8s 0-60 mph',
     topSpeed: '155 mph',
     features: ['MBUX Hyperscreen', 'E-Active Body Control', 'Burmester Audio', 'Rear Executive Seats', 'Advanced Safety'],
-    description: 'The Mercedes S-Class sets the standard for luxury sedans with cutting-edge technology and comfort.'
+    description: 'The Mercedes S Class sets the standard for luxury sedans with cutting-edge technology and comfort.'
   },
   
-  // PORSCHE
+  // LAND ROVER RANGE ROVER
   { 
-    name: 'Porsche 911 Turbo', 
-    image: 'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=800&h=600&fit=crop&crop=center', 
-    category: 'Supercar', 
-    brand: 'Porsche',
-    images: [
-      'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=1200&h=800&fit=crop&crop=center',
-      'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
-      'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
-    ],
-    price: '$180,000',
-    year: '2024',
-    engine: '3.8L H6 Twin-Turbo',
-    horsepower: '572 HP',
-    acceleration: '2.7s 0-60 mph',
-    topSpeed: '205 mph',
-    features: ['All-Wheel Drive', 'Active Aero', 'PASM Suspension', 'Sport Chrono', 'Track Precision'],
-    description: 'The Porsche 911 Turbo delivers exceptional performance with everyday drivability and legendary reliability.'
-  },
-  
-  // RANGE ROVER
-  { 
-    name: 'Range Rover SV', 
+    name: 'Land Rover Range Rover', 
     image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop&crop=center', 
     category: 'SUV', 
-    brand: 'Range Rover',
+    brand: 'Land Rover',
     images: [
       'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center',
       'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
       'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
     ],
-    price: '$200,000',
+    marketHourlyPrice: 76,
+    marketDailyPrice: 630,
+    minimumUseTime: '3 hours',
     year: '2024',
-    engine: '5.0L V8 Supercharged',
-    horsepower: '557 HP',
-    acceleration: '4.6s 0-60 mph',
+    engine: '3.0L I6 Turbo',
+    horsepower: '395 HP',
+    acceleration: '5.8s 0-60 mph',
     topSpeed: '140 mph',
     features: ['Luxury Interior', 'Terrain Response', 'Air Suspension', 'Premium Audio', 'Off-Road Capable'],
-    description: 'The Range Rover SV represents the ultimate in luxury SUV refinement and capability.'
+    description: 'The Land Rover Range Rover represents the ultimate in luxury SUV refinement and capability.'
   },
   
-  // ROLLS-ROYCE
+  // MERCEDES SPRINTER
   { 
-    name: 'Rolls-Royce Cullinan', 
-    image: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&h=600&fit=crop&crop=center', 
+    name: 'Mercedes Sprinter 16 Seater', 
+    image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop&crop=center', 
+    category: 'Van', 
+    brand: 'Mercedes',
+    images: [
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center',
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
+    ],
+    marketHourlyPrice: 120,
+    marketDailyPrice: 693,
+    minimumUseTime: '3 hours',
+    year: '2025',
+    engine: '2.0L I4 Turbo',
+    horsepower: '190 HP',
+    acceleration: '12.0s 0-60 mph',
+    topSpeed: '100 mph',
+    features: ['16 Passenger Seating', 'Premium Interior', 'Advanced Safety', 'Climate Control', 'Entertainment System'],
+    description: 'The Mercedes Sprinter 16 Seater provides luxury transportation for large groups with premium comfort and safety features.'
+  },
+  
+  // MERCEDES V CLASS
+  { 
+    name: 'Mercedes V Class', 
+    image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop&crop=center', 
+    category: 'Van', 
+    brand: 'Mercedes',
+    images: [
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center',
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
+    ],
+    marketHourlyPrice: 52,
+    marketDailyPrice: 364,
+    minimumUseTime: '3 hours',
+    year: '2024',
+    engine: '2.0L I4 Turbo',
+    horsepower: '190 HP',
+    acceleration: '10.5s 0-60 mph',
+    topSpeed: '120 mph',
+    features: ['Luxury Interior', 'Premium Seating', 'Advanced Safety', 'Climate Control', 'Entertainment System'],
+    description: 'The Mercedes V Class offers luxury van transportation with premium comfort and advanced safety features.'
+  },
+  { 
+    name: 'Mercedes V Class', 
+    image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop&crop=center', 
+    category: 'Van', 
+    brand: 'Mercedes',
+    images: [
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center',
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
+    ],
+    marketHourlyPrice: 20,
+    marketDailyPrice: 160,
+    minimumUseTime: '3 hours',
+    year: '2019',
+    engine: '2.1L I4 Turbo',
+    horsepower: '163 HP',
+    acceleration: '11.0s 0-60 mph',
+    topSpeed: '110 mph',
+    features: ['Luxury Interior', 'Premium Seating', 'Advanced Safety', 'Climate Control', 'Entertainment System'],
+    description: 'The Mercedes V Class offers luxury van transportation with premium comfort and advanced safety features.'
+  },
+  
+  // MERCEDES SENZATI
+  { 
+    name: 'Mercedes Senzati', 
+    image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop&crop=center', 
+    category: 'Sedan', 
+    brand: 'Mercedes',
+    images: [
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center',
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
+    ],
+    marketHourlyPrice: 104,
+    marketDailyPrice: 553,
+    minimumUseTime: '3 hours',
+    year: '2025',
+    engine: '3.0L I6 Turbo',
+    horsepower: '362 HP',
+    acceleration: '5.2s 0-60 mph',
+    topSpeed: '155 mph',
+    features: ['Luxury Interior', 'Premium Audio', 'Advanced Safety', 'Executive Seating', 'Climate Control'],
+    description: 'The Mercedes Senzati offers luxury sedan comfort with advanced technology and premium features.'
+  },
+  { 
+    name: 'Mercedes Sezati', 
+    image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop&crop=center', 
+    category: 'Sedan', 
+    brand: 'Mercedes',
+    images: [
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center',
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
+    ],
+    marketHourlyPrice: 104,
+    marketDailyPrice: 553,
+    minimumUseTime: '3 hours',
+    year: '2019',
+    engine: '3.0L I6 Turbo',
+    horsepower: '362 HP',
+    acceleration: '5.2s 0-60 mph',
+    topSpeed: '155 mph',
+    features: ['Luxury Interior', 'Premium Audio', 'Advanced Safety', 'Executive Seating', 'Climate Control'],
+    description: 'The Mercedes Sezati offers luxury sedan comfort with advanced technology and premium features.'
+  },
+  
+  // MERCEDES E CLASS
+  { 
+    name: 'Mercedes E Class', 
+    image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop&crop=center', 
+    category: 'Sedan', 
+    brand: 'Mercedes',
+    images: [
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center',
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
+    ],
+    marketHourlyPrice: 44,
+    marketDailyPrice: 350,
+    minimumUseTime: '3 hours',
+    year: '2025',
+    engine: '2.0L I4 Turbo',
+    horsepower: '255 HP',
+    acceleration: '6.0s 0-60 mph',
+    topSpeed: '130 mph',
+    features: ['Luxury Interior', 'Premium Audio', 'Advanced Safety', 'Executive Seating', 'Climate Control'],
+    description: 'The Mercedes E Class offers luxury sedan comfort with advanced technology and premium features.'
+  },
+  
+  // ESCALADE
+  { 
+    name: 'Escalade Escalade', 
+    image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop&crop=center', 
     category: 'SUV', 
-    brand: 'Rolls-Royce',
+    brand: 'Escalade',
     images: [
-      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1200&h=800&fit=crop&crop=center',
-      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
-      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center',
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
     ],
-    price: '$350,000',
-    year: '2024',
-    engine: '6.75L V12 Twin-Turbo',
-    horsepower: '563 HP',
-    acceleration: '5.0s 0-60 mph',
-    topSpeed: '155 mph',
-    features: ['Bespoke Interior', 'Magic Carpet Ride', 'Suicide Doors', 'Starlight Headliner', 'Custom Options'],
-    description: 'The Rolls-Royce Cullinan is the world\'s most luxurious SUV, offering unparalleled refinement and bespoke craftsmanship.'
-  },
-  { 
-    name: 'Rolls-Royce Ghost', 
-    image: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&h=600&fit=crop&crop=center', 
-    category: 'Sedan', 
-    brand: 'Rolls-Royce',
-    images: [
-      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1200&h=800&fit=crop&crop=center',
-      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
-      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
-    ],
-    price: '$350,000',
-    year: '2024',
-    engine: '6.75L V12 Twin-Turbo',
-    horsepower: '563 HP',
-    acceleration: '4.6s 0-60 mph',
-    topSpeed: '155 mph',
-    features: ['Bespoke Interior', 'Magic Carpet Ride', 'Suicide Doors', 'Starlight Headliner', 'Custom Options'],
-    description: 'The Rolls-Royce Ghost embodies the pinnacle of luxury motoring with whisper-quiet refinement and bespoke personalization.'
-  },
-  { 
-    name: 'Rolls-Royce Phantom', 
-    image: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&h=600&fit=crop&crop=center', 
-    category: 'Sedan', 
-    brand: 'Rolls-Royce',
-    images: [
-      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1200&h=800&fit=crop&crop=center',
-      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
-      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
-    ],
-    price: '$500,000',
-    year: '2024',
-    engine: '6.75L V12 Twin-Turbo',
-    horsepower: '563 HP',
-    acceleration: '5.4s 0-60 mph',
-    topSpeed: '155 mph',
-    features: ['Bespoke Interior', 'Magic Carpet Ride', 'Suicide Doors', 'Starlight Headliner', 'Custom Options'],
-    description: 'The Rolls-Royce Phantom is the ultimate expression of luxury, representing the pinnacle of automotive craftsmanship and personalization.'
+    marketHourlyPrice: 150,
+    marketDailyPrice: 1000,
+    minimumUseTime: '3 hours',
+    year: '2025',
+    engine: '6.2L V8',
+    horsepower: '420 HP',
+    acceleration: '5.9s 0-60 mph',
+    topSpeed: '120 mph',
+    features: ['Third Row Seating', 'Premium Leather', 'Advanced AWD', 'Towing Package', 'Entertainment System'],
+    description: 'The Escalade delivers uncompromising luxury and performance in a full-size SUV package.'
   },
 ];
 
@@ -297,7 +543,7 @@ const tiers = [
         ],
         cta: 'Become a Member',
         bgClass: 'from-gray-500/10 to-gray-800/10 border-gray-600',
-        buttonClass: 'bg-white/80 text-black hover:bg-white',
+        buttonClass: 'bg-white text-white hover:bg-white/90 hover:text-black shadow-lg',
         popular: false,
     },
     {
@@ -314,7 +560,7 @@ const tiers = [
         ],
         cta: 'Request Invitation',
         bgClass: 'from-purple-900/20 to-black/20 border-purple-700 shadow-purple-500/20',
-        buttonClass: 'bg-purple-600 text-white hover:bg-purple-500',
+        buttonClass: 'bg-purple-600 text-white hover:bg-white hover:text-black shadow-lg',
         popular: true,
     }
 ];
@@ -349,9 +595,9 @@ const contactMethods = [
 const FleetCard = ({ car, index, onCarClick }) => (
     <div
         onClick={() => onCarClick(car)}
-        className="group relative bg-black border border-white/10 rounded-lg overflow-hidden glow-border flex-shrink-0 w-72 sm:w-80 h-80 sm:h-96 cursor-pointer"
+        className="group relative bg-black border border-white/10 rounded-lg overflow-hidden glow-border flex-shrink-0 w-72 sm:w-80 h-96 sm:h-[28rem] cursor-pointer flex flex-col"
     >
-        <div className="h-64 flex items-center justify-center p-8 relative overflow-hidden">
+        <div className="h-60 flex items-center justify-center p-6 relative overflow-hidden">
             <img 
               src={car.image} 
               alt={car.name} 
@@ -368,16 +614,28 @@ const FleetCard = ({ car, index, onCarClick }) => (
               </div>
             </div>
         </div>
-        <div className="p-6 bg-white/5 backdrop-blur-sm">
-            <p className="text-xs text-white/50 uppercase tracking-widest">
-              {car.category}
-            </p>
-            <h3 className="font-display text-2xl text-white">
-              {car.name}
-            </h3>
-            <p className="text-sm text-white/60 mt-1">
-              Click to view details
-            </p>
+        <div className="flex-1 p-4 bg-white/5 backdrop-blur-sm flex flex-col justify-center">
+            <div>
+                <div className="flex items-center justify-between mb-2">
+                    <p className="text-xs text-white/50 uppercase tracking-widest">
+                      {car.category}
+                    </p>
+                    <span className="text-xs text-white/60 bg-white/10 px-2 py-1 rounded">
+                      {car.year}
+                    </span>
+                </div>
+                <h3 className="font-display text-xl text-white mb-3 line-clamp-2">
+                  {car.name}
+                </h3>
+                <div className="space-y-1">
+                  <p className="text-sm text-white/80">
+                    ${car.marketHourlyPrice}/hour • ${car.marketDailyPrice}/day
+                  </p>
+                  <p className="text-xs text-white/60">
+                    Min: {car.minimumUseTime}
+                  </p>
+                </div>
+            </div>
         </div>
     </div>
 );
@@ -470,40 +728,46 @@ const FleetCarousel = ({ fleet, onCarClick }) => {
 };
 
 const TierCard = ({ tier, index }) => (
-    <div
-        className={`relative rounded-2xl p-8 border ${tier.bgClass} flex flex-col h-full shadow-2xl glow-border`}
-    >
-        {tier.popular && (
-          <div className="absolute top-0 right-8 -mt-3 bg-purple-600 text-white text-xs font-bold px-3 py-1 rounded-full">
-            FOUNDER'S PICK
-          </div>
-        )}
-        
-        <h3 className="text-3xl font-display">
-          {tier.name}
-        </h3>
-        <p className="text-white/60 mb-6 font-light">{tier.title}</p>
+    <div className="flex flex-col h-full">
+        {/* Business Card */}
+        <div
+            className={`relative rounded-2xl p-8 border ${tier.bgClass} flex flex-col h-80 shadow-2xl glow-border`}
+        >
+            {tier.popular && (
+              <div className="absolute top-0 right-8 -mt-3 bg-purple-600 text-white text-xs font-bold px-3 py-1 rounded-full">
+                FOUNDER'S PICK
+              </div>
+            )}
+            
+            <div className="flex-grow flex flex-col justify-center text-center">
+                <h3 className="text-4xl font-display mb-2">
+                  {tier.name}
+                </h3>
+                <p className="text-white/80 mb-4 font-light text-lg">{tier.title}</p>
 
-        <p className="text-4xl font-light mb-4">
-          {tier.price}
-        </p>
-        <p className="text-white/80 font-light mb-8 flex-grow">{tier.description}</p>
+                <p className="text-3xl font-light mb-6">
+                  {tier.price}
+                </p>
+                <p className="text-white/70 font-light text-sm leading-relaxed">{tier.description}</p>
+            </div>
+        </div>
 
-        <div className="space-y-4 mb-10">
+        {/* Detailed Features Below Card */}
+        <div className="space-y-4 mt-6 flex-grow">
             {tier.features.map((feature, i) => (
                 <div key={i} className="flex items-start gap-3">
                     <div>
                       <Check className="w-5 h-5 text-purple-400 mt-1" />
                     </div>
-                    <span className="font-light">{feature}</span>
+                    <span className="font-light text-white/80">{feature}</span>
                 </div>
             ))}
         </div>
 
-        <div>
+        <div className="mt-auto mb-8">
           <Button 
             size="lg" 
-            className={`w-full mt-auto font-bold ${tier.buttonClass} shimmer-effect`}
+            className={`w-full font-bold ${tier.buttonClass} shimmer-effect opacity-90 hover:opacity-100 transition-opacity`}
             onClick={() => window.location.href = '/AuthPage'}
           >
             {tier.cta}
@@ -512,9 +776,43 @@ const TierCard = ({ tier, index }) => (
     </div>
 );
 
+// Navigation Indicator Component
+const NavigationIndicator = ({ activeSection, onSectionClick }) => {
+  const sections = [
+    { id: 'home' },
+    { id: 'fleet' },
+    { id: 'membership' },
+    { id: 'contact' }
+  ];
+
+  return (
+    <div className="fixed left-4 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3">
+      {sections.map((section) => (
+        <button
+          key={section.id}
+          onClick={() => onSectionClick(section.id)}
+          className={`group transition-all duration-300 ${
+            activeSection === section.id ? 'text-white' : 'text-white/40 hover:text-white/70'
+          }`}
+        >
+          {/* Dot */}
+          <div
+            className={`w-2 h-2 rounded-full border transition-all duration-300 ${
+              activeSection === section.id
+                ? 'bg-white border-white scale-125'
+                : 'bg-transparent border-white/40 group-hover:border-white/70 group-hover:scale-110'
+            }`}
+          />
+        </button>
+      ))}
+    </div>
+  );
+};
+
 export default function HomePage() {
   const [selectedCar, setSelectedCar] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
 
   const handleCarClick = (car) => {
     setSelectedCar(car);
@@ -526,10 +824,45 @@ export default function HomePage() {
     setSelectedCar(null);
   };
 
+  // Scroll detection for navigation indicator
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['home', 'fleet', 'membership', 'contact'];
+      const scrollPosition = window.scrollY + window.innerHeight / 2;
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = document.getElementById(sections[i]);
+        if (section && section.offsetTop <= scrollPosition) {
+          setActiveSection(sections[i]);
+          break;
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial check
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Handle navigation clicks
+  const handleSectionClick = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="bg-black text-white">
+      {/* Navigation Indicator */}
+      <NavigationIndicator 
+        activeSection={activeSection} 
+        onSectionClick={handleSectionClick} 
+      />
+      
       {/* Hero Section */}
-      <section className="relative h-screen overflow-hidden">
+      <section id="home" className="relative h-screen overflow-hidden">
         <video
           autoPlay
           loop
@@ -537,7 +870,7 @@ export default function HomePage() {
           playsInline
           className="absolute top-0 left-0 w-full h-full object-cover"
         >
-          <source src="/src/media/Night_Drive_Rolls_Royce_Ghost_BB_Cinematic_8k_Short_Film.mp4" type="video/mp4" />
+          <source src="/src/media/0924.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-black/40" />
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-white text-center px-4">
@@ -592,7 +925,7 @@ export default function HomePage() {
                 </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
                 {tiers.map((tier, index) => (
                     <TierCard key={tier.name} tier={tier} index={index} />
                 ))}
@@ -657,10 +990,11 @@ export default function HomePage() {
           {/* Car Fleet Grid */}
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 mb-16">
             <div>
-              <h4 className="text-sm font-light tracking-wider text-white mb-4 uppercase">ROLLS-ROYCE</h4>
+              <h4 className="text-sm font-light tracking-wider text-white mb-4 uppercase">ROLLS ROYCE</h4>
               <div className="space-y-2">
-                <a href="#fleet" className="block text-sm text-white/60 hover:text-white transition-colors font-light">CULLINAN</a>
-                <a href="#fleet" className="block text-sm text-white/60 hover:text-white transition-colors font-light">GHOST</a>
+                <a href="#fleet" className="block text-sm text-white/60 hover:text-white transition-colors font-light">CULLINAN SERIES 2</a>
+                <a href="#fleet" className="block text-sm text-white/60 hover:text-white transition-colors font-light">CULLINAN SILVER BADGE</a>
+                <a href="#fleet" className="block text-sm text-white/60 hover:text-white transition-colors font-light">CULLINAN BLACK BADGE</a>
                 <a href="#fleet" className="block text-sm text-white/60 hover:text-white transition-colors font-light">PHANTOM</a>
               </div>
             </div>
@@ -668,15 +1002,22 @@ export default function HomePage() {
             <div>
               <h4 className="text-sm font-light tracking-wider text-white mb-4 uppercase">MERCEDES</h4>
               <div className="space-y-2">
-                <a href="#fleet" className="block text-sm text-white/60 hover:text-white transition-colors font-light">G WAGON</a>
+                <a href="#fleet" className="block text-sm text-white/60 hover:text-white transition-colors font-light">S CLASS MAYBACH</a>
+                <a href="#fleet" className="block text-sm text-white/60 hover:text-white transition-colors font-light">GLS MAYBACH</a>
+                <a href="#fleet" className="block text-sm text-white/60 hover:text-white transition-colors font-light">G63</a>
                 <a href="#fleet" className="block text-sm text-white/60 hover:text-white transition-colors font-light">S CLASS</a>
+                <a href="#fleet" className="block text-sm text-white/60 hover:text-white transition-colors font-light">SPRINTER 16 SEATER</a>
+                <a href="#fleet" className="block text-sm text-white/60 hover:text-white transition-colors font-light">V CLASS</a>
+                <a href="#fleet" className="block text-sm text-white/60 hover:text-white transition-colors font-light">SENZATI</a>
+                <a href="#fleet" className="block text-sm text-white/60 hover:text-white transition-colors font-light">E CLASS</a>
               </div>
             </div>
 
             <div>
               <h4 className="text-sm font-light tracking-wider text-white mb-4 uppercase">FERRARI</h4>
               <div className="space-y-2">
-                <a href="#fleet" className="block text-sm text-white/60 hover:text-white transition-colors font-light">296 GTB</a>
+                <a href="#fleet" className="block text-sm text-white/60 hover:text-white transition-colors font-light">PUROSANGUE RED</a>
+                <a href="#fleet" className="block text-sm text-white/60 hover:text-white transition-colors font-light">PUROSANGUE GREY</a>
               </div>
             </div>
 
@@ -684,42 +1025,22 @@ export default function HomePage() {
               <h4 className="text-sm font-light tracking-wider text-white mb-4 uppercase">LAMBORGHINI</h4>
               <div className="space-y-2">
                 <a href="#fleet" className="block text-sm text-white/60 hover:text-white transition-colors font-light">URUS</a>
-                <a href="#fleet" className="block text-sm text-white/60 hover:text-white transition-colors font-light">HURACAN</a>
               </div>
             </div>
 
             <div>
-              <h4 className="text-sm font-light tracking-wider text-white mb-4 uppercase">MCLAREN</h4>
+              <h4 className="text-sm font-light tracking-wider text-white mb-4 uppercase">LAND ROVER</h4>
               <div className="space-y-2">
-                <a href="#fleet" className="block text-sm text-white/60 hover:text-white transition-colors font-light">720S</a>
+                <a href="#fleet" className="block text-sm text-white/60 hover:text-white transition-colors font-light">DEFENDER V6</a>
+                <a href="#fleet" className="block text-sm text-white/60 hover:text-white transition-colors font-light">DEFENDER V8</a>
+                <a href="#fleet" className="block text-sm text-white/60 hover:text-white transition-colors font-light">RANGE ROVER</a>
               </div>
             </div>
 
             <div>
-              <h4 className="text-sm font-light tracking-wider text-white mb-4 uppercase">CADILLAC</h4>
+              <h4 className="text-sm font-light tracking-wider text-white mb-4 uppercase">ESCALADE</h4>
               <div className="space-y-2">
-                <a href="#fleet" className="block text-sm text-white/60 hover:text-white transition-colors font-light">ESCALADE V</a>
-              </div>
-            </div>
-
-            <div>
-              <h4 className="text-sm font-light tracking-wider text-white mb-4 uppercase">RANGE ROVER</h4>
-              <div className="space-y-2">
-                <a href="#fleet" className="block text-sm text-white/60 hover:text-white transition-colors font-light">SV</a>
-              </div>
-            </div>
-
-            <div>
-              <h4 className="text-sm font-light tracking-wider text-white mb-4 uppercase">BMW</h4>
-              <div className="space-y-2">
-                <a href="#fleet" className="block text-sm text-white/60 hover:text-white transition-colors font-light">7 SERIES</a>
-              </div>
-            </div>
-
-            <div>
-              <h4 className="text-sm font-light tracking-wider text-white mb-4 uppercase">PORSCHE</h4>
-              <div className="space-y-2">
-                <a href="#fleet" className="block text-sm text-white/60 hover:text-white transition-colors font-light">911 TURBO</a>
+                <a href="#fleet" className="block text-sm text-white/60 hover:text-white transition-colors font-light">ESCALADE</a>
               </div>
             </div>
           </div>

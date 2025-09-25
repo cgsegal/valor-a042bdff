@@ -157,8 +157,9 @@ export default function Layout({ children, currentPageName }) {
       </style>
       <div className="relative min-h-screen bg-black text-white">
         {/* Navigation Header - Always Present */}
-        <header className="fixed top-0 left-0 right-0 z-40 p-8">
-          <div className="flex justify-between items-center">
+        <header className="fixed top-0 left-0 right-0 z-40 px-4 py-4">
+          <div className="flex items-center justify-between max-w-4xl mx-auto">
+            {/* Menu Button */}
             <motion.button 
               onClick={() => setIsMenuOpen(true)}
               className="flex items-center gap-2 text-white hover:text-white/80 transition-colors"
@@ -169,19 +170,29 @@ export default function Layout({ children, currentPageName }) {
               <span className="text-sm font-light tracking-wider">MENU</span>
             </motion.button>
 
-            <motion.div
-              className="floating-animation"
-              whileHover={{ scale: 1.1 }}
-            >
-              <a href="/">
-                <img 
-                  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjQwIiB2aWV3Qm94PSIwIDAgMTAwIDQwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8dGV4dCB4PSI1MCIgeT0iMjUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5TSUxWQVI8L3RleHQ+Cjwvc3ZnPgo=" 
-                  alt="SILVAR" 
-                  className="h-12"
-                />
-              </a>
-            </motion.div>
+            {/* Centered Silvar Logo */}
+            <div className="absolute left-1/2 transform -translate-x-1/2">
+              <motion.div
+                className="floating-animation"
+                whileHover={{ scale: 1.1 }}
+              >
+                <a href="/">
+                  <h1 className="text-xl font-display tracking-wider text-white silvar-glow">
+                    SILVAR
+                  </h1>
+                </a>
+              </motion.div>
+            </div>
 
+            {/* View Reservation Button */}
+            <motion.button
+              onClick={() => window.location.href = '/MemberDashboard'}
+              className="text-white border border-white/20 hover:bg-white/10 px-4 py-2 text-sm font-light tracking-wider rounded transition-colors"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              View Reservation
+            </motion.button>
           </div>
         </header>
 

@@ -22,7 +22,10 @@ export default defineConfig({
       }
     },
     target: 'esnext',
-    minify: 'esbuild'
+    minify: 'esbuild',
+    commonjsOptions: {
+      include: [/node_modules/]
+    }
   },
   optimizeDeps: {
     esbuildOptions: {
@@ -30,5 +33,11 @@ export default defineConfig({
         '.js': 'jsx',
       },
     },
+  },
+  define: {
+    global: 'globalThis',
+  },
+  esbuild: {
+    target: 'esnext'
   },
 }) 

@@ -14,6 +14,16 @@ export default defineConfig({
     },
     extensions: ['.mjs', '.js', '.jsx', '.ts', '.tsx', '.json']
   },
+  build: {
+    rollupOptions: {
+      external: [],
+      output: {
+        manualChunks: undefined
+      }
+    },
+    target: 'esnext',
+    minify: 'esbuild'
+  },
   optimizeDeps: {
     esbuildOptions: {
       loader: {

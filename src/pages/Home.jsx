@@ -6,6 +6,7 @@ import { MessageCircle, Phone, Mail, Check, ChevronLeft, ChevronRight, Menu } fr
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import ContactForm from '../components/revamp/ContactForm';
 import CarDetailModal from '../components/revamp/CarDetailModal';
+import ProcessFlowDiagram from '../components/revamp/ProcessFlowDiagram';
 
 // Complete fleet based on real data from the table
 const fleet = [
@@ -1004,6 +1005,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Process Flow Diagram */}
+      <ProcessFlowDiagram />
 
       {/* Fleet Section */}
       <section id="fleet" className="py-20 bg-black">

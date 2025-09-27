@@ -12,6 +12,8 @@ import Terms from "./Terms";
 
 import AuthPage from "./AuthPage";
 
+import Checkout from "./Checkout";
+
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 
 const PAGES = {
@@ -27,6 +29,8 @@ const PAGES = {
     Terms: Terms,
     
     AuthPage: AuthPage,
+    
+    Checkout: Checkout,
     
 }
 
@@ -66,6 +70,8 @@ function PagesContent() {
                 <Route path="/Terms" element={<Terms />} />
                 
                 <Route path="/AuthPage" element={<AuthPage />} />
+                
+                <Route path="/checkout" element={<Checkout />} />
                 
             </Routes>
         </Layout>

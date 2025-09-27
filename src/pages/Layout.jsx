@@ -1,7 +1,8 @@
 
 import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Menu, X, Search } from 'lucide-react';
+import { Menu, X, Search, ShoppingCart } from 'lucide-react';
+import { useCart } from '@/contexts/CartContext';
 
 const navItems = [
   { name: 'FLEET', anchor: '#fleet' },
@@ -14,6 +15,7 @@ const navItems = [
 export default function Layout({ children, currentPageName }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [user, setUser] = React.useState(null);
+  const { getTotalItems } = useCart();
 
   const closeMenu = () => {
     setIsMenuOpen(false);
@@ -186,16 +188,34 @@ export default function Layout({ children, currentPageName }) {
               </motion.div>
             </div>
 
-            {/* View Reservation Button - Mobile: smaller, Desktop: normal */}
-            <motion.button
-              onClick={() => window.location.href = '/MemberDashboard'}
-              className="text-white border border-white/20 hover:bg-white/10 px-2 py-1 sm:px-3 sm:py-1.5 text-xs sm:text-xs font-light tracking-wider rounded transition-colors w-1/3 sm:w-auto flex justify-center"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <span className="hidden sm:inline">Reserve Now</span>
-              <span className="sm:hidden">Reserve Now</span>
-            </motion.button>
+            {/* Cart and Reserve Buttons */}
+            <div className="flex items-center gap-2 sm:gap-4 w-1/3 sm:w-auto justify-end">
+              {/* Cart Icon */}
+              <motion.button
+                onClick={() => window.location.href = '/checkout'}
+                className="relative text-white hover:text-white/80 transition-colors p-2"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <ShoppingCart className="w-5 h-5 sm:w-6 sm:h-6" />
+                {getTotalItems() > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-white text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-semibold">
+                    {getTotalItems()}
+                  </span>
+                )}
+              </motion.button>
+
+              {/* Reserve Now Button */}
+              <motion.button
+                onClick={() => window.location.href = '/MemberDashboard'}
+                className="text-white border border-white/20 hover:bg-white/10 px-2 py-1 sm:px-3 sm:py-1.5 text-xs font-light tracking-wider rounded transition-colors"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className="hidden sm:inline">Reserve Now</span>
+                <span className="sm:hidden">Reserve</span>
+              </motion.button>
+            </div>
           </div>
         </header>
 

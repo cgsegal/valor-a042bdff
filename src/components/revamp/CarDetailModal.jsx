@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Star, Gauge, Zap, Shield, Users } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Star, Gauge, Zap, Shield, Users, Calendar, Clock, ShoppingCart } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { useCart } from '@/contexts/CartContext';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import {
   Dialog,
   DialogContent,
@@ -11,6 +17,12 @@ import {
 
 const CarDetailModal = ({ car, isOpen, onClose }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [rentalType, setRentalType] = useState('hourly');
+  const [duration, setDuration] = useState(3);
+  const [startDate, setStartDate] = useState('');
+  const [startTime, setStartTime] = useState('');
+  const { addToCart } = useCart();
+  const navigate = useNavigate();
 
   if (!car) return null;
 
@@ -24,6 +36,28 @@ const CarDetailModal = ({ car, isOpen, onClose }) => {
 
   const goToImage = (index) => {
     setCurrentImageIndex(index);
+  };
+
+  const calculatePrice = () => {
+    if (rentalType === 'hourly') {
+      return car.marketHourlyPrice * duration;
+    } else {
+      return car.marketDailyPrice * duration;
+    }
+  };
+
+  const handleAddToCart = () => {
+    const rentalDetails = {
+      rentalType,
+      duration,
+      startDate,
+      startTime,
+      totalPrice: calculatePrice()
+    };
+
+    addToCart(car, rentalDetails);
+    onClose();
+    navigate('/checkout');
   };
 
   return (
@@ -106,7 +140,12 @@ const CarDetailModal = ({ car, isOpen, onClose }) => {
             {/* Price and Key Stats */}
             <div className="bg-white/5 rounded-lg p-6">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-2xl font-display text-white">{car.price}</h3>
+                <div>
+                  <p className="text-sm text-white/60 mb-1">Starting from</p>
+                  <h3 className="text-2xl font-display text-white">
+                    ${car.marketHourlyPrice}/hr • ${car.marketDailyPrice}/day
+                  </h3>
+                </div>
                 <div className="flex items-center gap-2 text-white/70">
                   <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
                   <span className="text-sm">Premium</span>
@@ -151,6 +190,75 @@ const CarDetailModal = ({ car, isOpen, onClose }) => {
               <p className="text-white/80 leading-relaxed">{car.description}</p>
             </div>
 
+            {/* Rental Details */}
+            <div className="bg-white/5 rounded-lg p-6">
+              <h4 className="text-xl font-display text-white mb-4">Rental Details</h4>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                <div>
+                  <Label htmlFor="rental-type" className="text-white/80 mb-2 block">Rental Type</Label>
+                  <Select value={rentalType} onValueChange={setRentalType}>
+                    <SelectTrigger className="bg-black/50 border-white/20 text-white">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-black border-white/20">
+                      <SelectItem value="hourly" className="text-white hover:bg-white/10">Hourly</SelectItem>
+                      <SelectItem value="daily" className="text-white hover:bg-white/10">Daily</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <Label htmlFor="duration" className="text-white/80 mb-2 block">
+                    Duration ({rentalType === 'hourly' ? 'hours' : 'days'})
+                  </Label>
+                  <Input
+                    id="duration"
+                    type="number"
+                    min={rentalType === 'hourly' ? 3 : 1}
+                    value={duration}
+                    onChange={(e) => setDuration(parseInt(e.target.value) || 1)}
+                    className="bg-black/50 border-white/20 text-white"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                <div>
+                  <Label htmlFor="start-date" className="text-white/80 mb-2 block">Start Date</Label>
+                  <Input
+                    id="start-date"
+                    type="date"
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.target.value)}
+                    min={new Date().toISOString().split('T')[0]}
+                    className="bg-black/50 border-white/20 text-white"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="start-time" className="text-white/80 mb-2 block">Start Time</Label>
+                  <Input
+                    id="start-time"
+                    type="time"
+                    value={startTime}
+                    onChange={(e) => setStartTime(e.target.value)}
+                    className="bg-black/50 border-white/20 text-white"
+                  />
+                </div>
+              </div>
+
+              <div className="bg-white/10 rounded-lg p-4 border border-white/20">
+                <div className="flex justify-between items-center">
+                  <span className="text-white/80">Total Price:</span>
+                  <span className="text-2xl font-display text-white">${calculatePrice().toLocaleString()}</span>
+                </div>
+                <p className="text-sm text-white/60 mt-1">
+                  {duration} {rentalType === 'hourly' ? 'hours' : 'days'} × ${rentalType === 'hourly' ? car.marketHourlyPrice : car.marketDailyPrice}
+                </p>
+              </div>
+            </div>
+
             {/* Features */}
             <div>
               <h4 className="text-xl font-display text-white mb-3">Key Features</h4>
@@ -172,20 +280,22 @@ const CarDetailModal = ({ car, isOpen, onClose }) => {
 
             {/* Action Buttons */}
             <div className="flex gap-4 pt-4">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="flex-1 bg-white text-black px-6 py-3 rounded-lg font-semibold hover:bg-white/90 transition-colors"
+              <Button
+                onClick={handleAddToCart}
+                disabled={!startDate || !startTime}
+                className="flex-1 bg-white text-black hover:bg-white/90 disabled:opacity-50 disabled:cursor-not-allowed"
+                size="lg"
               >
-                Book This Vehicle
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-6 py-3 border border-white/30 text-white rounded-lg hover:bg-white/10 transition-colors"
+                <ShoppingCart className="w-5 h-5 mr-2" />
+                Add to Cart - ${calculatePrice().toLocaleString()}
+              </Button>
+              <Button
+                variant="outline"
+                className="px-6 py-3 border-white/30 text-white hover:bg-white/10"
+                size="lg"
               >
                 Contact Us
-              </motion.button>
+              </Button>
             </div>
           </div>
         </div>

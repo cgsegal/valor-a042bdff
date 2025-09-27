@@ -2,11 +2,11 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const fleet = [
-  { name: 'Rolls-Royce Cullinan', image: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&h=600&fit=crop&crop=center' },
-  { name: 'Mercedes G-Wagon', image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop&crop=center' },
-  { name: 'Rolls-Royce Ghost', image: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&h=600&fit=crop&crop=center' },
-  { name: 'Ferrari 296 GTB', image: 'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=800&h=600&fit=crop&crop=center' },
-  { name: 'Cadillac Escalade', image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop&crop=center' },
+  { name: 'Rolls-Royce Cullinan', image: '/media/cullinan.jpg' },
+  { name: 'Mercedes G-Wagon', image: '/media/g63.jpg' },
+  { name: 'Rolls-Royce Phantom', image: '/media/phantom.webp' },
+  { name: 'Ferrari Purosangue', image: '/media/red_perusangue.jpeg' },
+  { name: 'Lamborghini Urus', image: '/media/urus.png' },
 ];
 
 const duplicatedFleet = [...fleet, ...fleet];

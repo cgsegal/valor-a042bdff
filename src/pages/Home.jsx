@@ -97,13 +97,13 @@ const fleet = [
   // MERCEDES
   { 
     name: 'Mercedes S Class Maybach', 
-    image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop&crop=center', 
+    image: '/media/sclass.avif', 
     category: 'Sedan', 
     brand: 'Mercedes',
     images: [
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center',
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
+      '/media/sclass.avif',
+      '/media/sclass.avif',
+      '/media/sclass.avif'
     ],
     marketHourlyPrice: 136,
     marketDailyPrice: 1000,
@@ -118,13 +118,13 @@ const fleet = [
   },
   { 
     name: 'Mercedes GLS Maybach', 
-    image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop&crop=center', 
+    image: '/media/glsmaybach.jpg', 
     category: 'SUV', 
     brand: 'Mercedes',
     images: [
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center',
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
+      '/media/glsmaybach.jpg',
+      '/media/glsmaybach.jpg',
+      '/media/glsmaybach.jpg'
     ],
     marketHourlyPrice: 120,
     marketDailyPrice: 1050,
@@ -141,13 +141,13 @@ const fleet = [
   // FERRARI
   { 
     name: 'Ferrari Purosangue Red', 
-    image: 'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=800&h=600&fit=crop&crop=center', 
+    image: '/media/red_perusangue.jpeg', 
     category: 'SUV', 
     brand: 'Ferrari',
     images: [
-      'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=1200&h=800&fit=crop&crop=center',
-      'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
-      'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
+      '/media/red_perusangue.jpeg',
+      '/media/red_perusangue.jpeg',
+      '/media/red_perusangue.jpeg'
     ],
     marketHourlyPrice: 149.5,
     marketDailyPrice: 1046.5,
@@ -162,13 +162,13 @@ const fleet = [
   },
   { 
     name: 'Ferrari Purosangue Grey', 
-    image: 'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=800&h=600&fit=crop&crop=center', 
+    image: '/media/grey_perusangue.webp', 
     category: 'SUV', 
     brand: 'Ferrari',
     images: [
-      'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=1200&h=800&fit=crop&crop=center',
-      'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
-      'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
+      '/media/grey_perusangue.webp',
+      '/media/grey_perusangue.webp',
+      '/media/grey_perusangue.webp'
     ],
     marketHourlyPrice: 149.5,
     marketDailyPrice: 1046.5,
@@ -185,13 +185,13 @@ const fleet = [
   // ROLLS ROYCE PHANTOM
   { 
     name: 'Rolls Royce Phantom', 
-    image: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&h=600&fit=crop&crop=center', 
+    image: '/media/phantom.webp', 
     category: 'Sedan', 
     brand: 'Rolls Royce',
     images: [
-      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1200&h=800&fit=crop&crop=center',
-      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
-      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
+      '/media/phantom.webp',
+      '/media/phantom.webp',
+      '/media/phantom.webp'
     ],
     marketHourlyPrice: 156,
     marketDailyPrice: 1330,
@@ -208,13 +208,13 @@ const fleet = [
   // MERCEDES G63
   { 
     name: 'Mercedes G63', 
-    image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop&crop=center', 
+    image: '/media/g63.jpg', 
     category: 'SUV', 
     brand: 'Mercedes',
     images: [
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center',
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
+      '/media/g63.jpg',
+      '/media/g63.jpg',
+      '/media/g63.jpg'
     ],
     marketHourlyPrice: 100,
     marketDailyPrice: 700,
@@ -229,13 +229,13 @@ const fleet = [
   },
   { 
     name: 'Mercedes G63', 
-    image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop&crop=center', 
+    image: '/media/g63.jpg', 
     category: 'SUV', 
     brand: 'Mercedes',
     images: [
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center',
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
+      '/media/g63.jpg',
+      '/media/g63.jpg',
+      '/media/g63.jpg'
     ],
     marketHourlyPrice: 100,
     marketDailyPrice: 700,
@@ -252,13 +252,13 @@ const fleet = [
   // LAMBORGHINI
   { 
     name: 'Lamborghini Urus', 
-    image: 'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=800&h=600&fit=crop&crop=center', 
+    image: '/media/urus.png', 
     category: 'SUV', 
     brand: 'Lamborghini',
     images: [
-      'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=1200&h=800&fit=crop&crop=center',
-      'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
-      'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
+      '/media/urus.png',
+      '/media/urus.png',
+      '/media/urus.png'
     ],
     marketHourlyPrice: 120,
     marketDailyPrice: 626.5,
@@ -275,13 +275,13 @@ const fleet = [
   // LAND ROVER
   { 
     name: 'Land Rover Defender V6', 
-    image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop&crop=center', 
+    image: '/media/defenderv6.jpg', 
     category: 'SUV', 
     brand: 'Land Rover',
     images: [
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center',
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
+      '/media/defenderv6.jpg',
+      '/media/defenderv6.jpg',
+      '/media/defenderv6.jpg'
     ],
     marketHourlyPrice: 80,
     marketDailyPrice: 665,
@@ -296,13 +296,13 @@ const fleet = [
   },
   { 
     name: 'Land Rover Defender V8', 
-    image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop&crop=center', 
+    image: '/media/defenderv8.avif', 
     category: 'SUV', 
     brand: 'Land Rover',
     images: [
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center',
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
+      '/media/defenderv8.avif',
+      '/media/defenderv8.avif',
+      '/media/defenderv8.avif'
     ],
     marketHourlyPrice: 80,
     marketDailyPrice: 665,
@@ -319,13 +319,13 @@ const fleet = [
   // MERCEDES S CLASS
   { 
     name: 'Mercedes S Class', 
-    image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop&crop=center', 
+    image: '/media/sclass.avif', 
     category: 'Sedan', 
     brand: 'Mercedes',
     images: [
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center',
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
+      '/media/sclass.avif',
+      '/media/sclass.avif',
+      '/media/sclass.avif'
     ],
     marketHourlyPrice: 52,
     marketDailyPrice: 420,
@@ -342,13 +342,13 @@ const fleet = [
   // LAND ROVER RANGE ROVER
   { 
     name: 'Land Rover Range Rover', 
-    image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop&crop=center', 
+    image: '/media/rangerover.avif', 
     category: 'SUV', 
     brand: 'Land Rover',
     images: [
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center',
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
+      '/media/rangerover.avif',
+      '/media/rangerover.avif',
+      '/media/rangerover.avif'
     ],
     marketHourlyPrice: 76,
     marketDailyPrice: 630,
@@ -365,13 +365,13 @@ const fleet = [
   // MERCEDES SPRINTER
   { 
     name: 'Mercedes Sprinter 16 Seater', 
-    image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop&crop=center', 
+    image: '/media/sprinter.png', 
     category: 'Van', 
     brand: 'Mercedes',
     images: [
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center',
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
+      '/media/sprinter.png',
+      '/media/sprinter.png',
+      '/media/sprinter.png'
     ],
     marketHourlyPrice: 120,
     marketDailyPrice: 693,
@@ -388,13 +388,13 @@ const fleet = [
   // MERCEDES V CLASS
   { 
     name: 'Mercedes V Class', 
-    image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop&crop=center', 
+    image: '/media/vclass.avif', 
     category: 'Van', 
     brand: 'Mercedes',
     images: [
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center',
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
+      '/media/vclass.avif',
+      '/media/vclass.avif',
+      '/media/vclass.avif'
     ],
     marketHourlyPrice: 52,
     marketDailyPrice: 364,
@@ -409,13 +409,13 @@ const fleet = [
   },
   { 
     name: 'Mercedes V Class', 
-    image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop&crop=center', 
+    image: '/media/vclass.avif', 
     category: 'Van', 
     brand: 'Mercedes',
     images: [
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center',
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
+      '/media/vclass.avif',
+      '/media/vclass.avif',
+      '/media/vclass.avif'
     ],
     marketHourlyPrice: 20,
     marketDailyPrice: 160,
@@ -432,13 +432,13 @@ const fleet = [
   // MERCEDES SENZATI
   { 
     name: 'Mercedes Senzati', 
-    image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop&crop=center', 
+    image: '/media/senzati.webp', 
     category: 'Sedan', 
     brand: 'Mercedes',
     images: [
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center',
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
+      '/media/senzati.webp',
+      '/media/senzati.webp',
+      '/media/senzati.webp'
     ],
     marketHourlyPrice: 104,
     marketDailyPrice: 553,
@@ -453,13 +453,13 @@ const fleet = [
   },
   { 
     name: 'Mercedes Sezati', 
-    image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop&crop=center', 
+    image: '/media/senzati.webp', 
     category: 'Sedan', 
     brand: 'Mercedes',
     images: [
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center',
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
+      '/media/senzati.webp',
+      '/media/senzati.webp',
+      '/media/senzati.webp'
     ],
     marketHourlyPrice: 104,
     marketDailyPrice: 553,
@@ -476,13 +476,13 @@ const fleet = [
   // MERCEDES E CLASS
   { 
     name: 'Mercedes E Class', 
-    image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop&crop=center', 
+    image: '/media/eclass.jpg', 
     category: 'Sedan', 
     brand: 'Mercedes',
     images: [
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center',
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
+      '/media/eclass.jpg',
+      '/media/eclass.jpg',
+      '/media/eclass.jpg'
     ],
     marketHourlyPrice: 44,
     marketDailyPrice: 350,
@@ -498,14 +498,14 @@ const fleet = [
   
   // ESCALADE
   { 
-    name: 'Escalade Escalade', 
-    image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop&crop=center', 
+    name: 'Cadillac Escalade', 
+    image: '/media/escalade.webp', 
     category: 'SUV', 
-    brand: 'Escalade',
+    brand: 'Cadillac',
     images: [
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center',
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80',
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&h=800&fit=crop&crop=center&auto=format&q=80'
+      '/media/escalade.webp',
+      '/media/escalade.webp',
+      '/media/escalade.webp'
     ],
     marketHourlyPrice: 150,
     marketDailyPrice: 1000,

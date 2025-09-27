@@ -190,20 +190,22 @@ export default function Layout({ children, currentPageName }) {
 
             {/* Cart and Reserve Buttons */}
             <div className="flex items-center gap-2 sm:gap-4 w-1/3 sm:w-auto justify-end">
-              {/* Cart Icon */}
-              <motion.button
-                onClick={() => window.location.href = '/checkout'}
-                className="relative text-white hover:text-white/80 transition-colors p-2"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <ShoppingCart className="w-5 h-5 sm:w-6 sm:h-6" />
-                {getTotalItems() > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-white text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-semibold">
-                    {getTotalItems()}
-                  </span>
-                )}
-              </motion.button>
+              {/* Cart Icon - Hidden on Home page */}
+              {currentPageName !== 'Home' && (
+                <motion.button
+                  onClick={() => window.location.href = '/checkout'}
+                  className="relative text-white hover:text-white/80 transition-colors p-2"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <ShoppingCart className="w-5 h-5 sm:w-6 sm:h-6" />
+                  {getTotalItems() > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-white text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-semibold">
+                      {getTotalItems()}
+                    </span>
+                  )}
+                </motion.button>
+              )}
 
               {/* Member Dashboard Button */}
               <motion.button

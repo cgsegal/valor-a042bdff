@@ -3,6 +3,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { MessageCircle, Phone, Mail, Check, ChevronLeft, ChevronRight, Menu } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import ContactForm from '../components/revamp/ContactForm';
 import CarDetailModal from '../components/revamp/CarDetailModal';
 
@@ -909,6 +910,7 @@ const NavigationIndicator = ({ activeSection, onSectionClick }) => {
 export default function HomePage() {
   const [selectedCar, setSelectedCar] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isContactPopupOpen, setIsContactPopupOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
 
   const handleCarClick = (car) => {
@@ -919,6 +921,14 @@ export default function HomePage() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedCar(null);
+  };
+
+  const handleReserveNowClick = () => {
+    setIsContactPopupOpen(true);
+  };
+
+  const handleCloseContactPopup = () => {
+    setIsContactPopupOpen(false);
   };
 
   // Scroll detection for navigation indicator
@@ -986,6 +996,7 @@ export default function HomePage() {
                 variant="outline" 
                 size="lg"
                 className="bg-white text-black hover:bg-white/90 border-white font-light tracking-wider px-8 glow-border"
+                onClick={handleReserveNowClick}
               >
                 RESERVE NOW
               </Button>
@@ -1198,6 +1209,54 @@ export default function HomePage() {
         isOpen={isModalOpen} 
         onClose={handleCloseModal} 
       />
+
+      {/* Contact Popup Modal */}
+      <Dialog open={isContactPopupOpen} onOpenChange={setIsContactPopupOpen}>
+        <DialogContent className="bg-black border-white/20 text-white max-w-2xl">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-display text-center mb-4">
+              Contact Us
+            </DialogTitle>
+            <p className="text-white/70 text-center mb-6">
+              Get in touch with us on WhatsApp or via email for immediate assistance
+            </p>
+          </DialogHeader>
+          
+          <div className="space-y-4">
+            {contactMethods.map((method, index) => (
+              <div
+                key={method.title}
+                className="bg-white/5 border border-white/10 rounded-lg p-6 flex items-center gap-6 glow-border hover:bg-white/10 transition-all cursor-pointer"
+                onClick={() => {
+                  if (method.title === 'WhatsApp') {
+                    window.open(`https://${method.value}`, '_blank');
+                  } else if (method.title === 'Email') {
+                    window.open(`mailto:${method.value}`, '_blank');
+                  } else if (method.title === 'Phone') {
+                    window.open(`tel:${method.value}`, '_blank');
+                  }
+                }}
+              >
+                <div>
+                  <method.icon className="w-8 h-8 text-white/70" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-semibold text-lg mb-1">
+                    {method.title}
+                  </h3>
+                  <p className="text-white/60 text-sm mb-2">{method.description}</p>
+                  <p className="text-white font-mono text-sm">
+                    {method.value}
+                  </p>
+                </div>
+                <div className="text-white/40">
+                  <ChevronRight className="w-5 h-5" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

@@ -21,7 +21,7 @@ export default function PrivacyPolicyPage() {
       exit="out"
       variants={pageVariants}
       transition={pageTransition}
-      className="min-h-screen bg-black text-white p-8"
+      className="min-h-screen bg-black text-white p-8 pt-24"
     >
       <div className="max-w-4xl mx-auto">
         <h1 className="text-5xl font-display mb-8">Privacy Policy</h1>

@@ -205,15 +205,15 @@ export default function Layout({ children, currentPageName }) {
                 )}
               </motion.button>
 
-              {/* Reserve Now Button */}
+              {/* Member Dashboard Button */}
               <motion.button
                 onClick={() => window.location.href = '/MemberDashboard'}
                 className="text-white border border-white/20 hover:bg-white/10 px-2 py-1 sm:px-3 sm:py-1.5 text-xs font-light tracking-wider rounded transition-colors"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <span className="hidden sm:inline">Reserve Now</span>
-                <span className="sm:hidden">Reserve</span>
+                <span className="hidden sm:inline">Member Dashboard</span>
+                <span className="sm:hidden">Dashboard</span>
               </motion.button>
             </div>
           </div>

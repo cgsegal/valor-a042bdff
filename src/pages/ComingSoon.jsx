@@ -25,7 +25,7 @@ export default function ComingSoonPage() {
       exit="out"
       variants={pageVariants}
       transition={pageTransition}
-      className="min-h-screen bg-black text-white p-8 flex flex-col items-center justify-center text-center"
+      className="min-h-screen bg-black text-white p-8 pt-24 flex flex-col items-center justify-center text-center"
     >
       <div className="max-w-2xl mx-auto">
         <h1 className="text-6xl font-display mb-4 silvar-glow">Coming Soon</h1>

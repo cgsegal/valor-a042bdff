@@ -45,7 +45,7 @@ export default function MemberDashboardPage() {
       exit="out"
       variants={pageVariants}
       transition={pageTransition}
-      className="min-h-screen bg-black text-white p-8"
+      className="min-h-screen bg-black text-white p-8 pt-24"
     >
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-8">

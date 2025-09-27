@@ -135,7 +135,7 @@ const CheckoutForm = () => {
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen bg-black text-white flex items-center justify-center">
+      <div className="min-h-screen bg-black text-white flex items-center justify-center pt-24">
         <div className="text-center">
           <Car className="w-16 h-16 mx-auto mb-4 text-white/50" />
           <h1 className="text-3xl font-display mb-4">Your cart is empty</h1>
@@ -149,7 +149,7 @@ const CheckoutForm = () => {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white py-12 px-4">
+    <div className="min-h-screen bg-black text-white py-12 px-4 pt-24">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-6xl font-display mb-4">Checkout</h1>
